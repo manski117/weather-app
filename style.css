@@ -1,0 +1,281 @@
+:root {
+    --header-color: #38368D;
+    --header-text-color: #7A79BB;
+    --subhead-color: #2C5684;
+    --subhead-text-color: #6D8DB0;
+    --card-color: #2C5684;
+    --card-text-color: #6D8DB0;
+    --footer-color: #248071;
+    --footer-text-color: #65ACA0;
+    --button-color: #0F0E55;
+    --button-text-color: #52509E;
+}
+
+*{
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif; 
+}
+
+body{
+  width: 100%;
+  height: 150vh;
+  display: flex;
+  flex-direction: column;
+  
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url("https://upload.wikimedia.org/wikipedia/commons/e/e3/Blue_sky_with_wisps_of_cloud_on_a_clear_summer_morning.jpg");
+  
+  position: relative;
+  background-position: 100%;
+  background-size: 500% 500%;
+  
+/*Left number x, right number y. Default is x = y*/
+}
+
+header{
+  background-color: var(--header-color);
+  color: var(--header-text-color);
+  width: 100%;
+  height: 6rem;
+  font-size: 2.5rem;
+  text-align: center;
+  
+}
+
+#toolbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center; 
+  height: 3rem;
+  width: 100%;
+  background-color: var(--subhead-color);
+  color: var(--subhead-text-color);
+}
+
+#searchbar{
+  width: 60%;
+}
+
+#searchbar-feild{
+ width: 80%;
+}
+
+#submit-location{
+  border: 2px solid var(--button-text-color);
+  color: var(--button-text-color); 
+  background-color: var(--button-color);
+  cursor: pointer;
+}
+#submit-location:hover{
+  filter: brightness(150%);
+}
+
+#toggle-buttons{
+  display: flex; 
+  justify-content: space-between;
+  width: 30%;
+}
+
+.toggle-button{
+  border-radius: 88px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  border: 2px solid var(--button-text-color);
+  color: var(--button-text-color); 
+  background-color: var(--button-color);
+  cursor: pointer;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-button:hover{
+  filter: brightness(150%);
+}
+
+
+#content{
+  border: 3px solid red;
+  
+  width: 90%;
+  height: 100vh;
+  margin: auto;
+  
+}
+
+#main-data{
+  background-color: var(--card-color);
+  border: 3px solid orange;
+  
+  height: 50%;
+  width: 100%;
+  display: flex; 
+  flex-direction: column;
+}
+
+.location-and-time{
+  background-color: var(--card-color);
+  color: var(--card-text-color);
+  
+  
+  height: 3rem;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.temp-and-image{
+
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-around;
+  height: 60%;
+}
+
+.temperature{
+  color: var(--card-text-color);
+  font-size: 6rem;
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+}
+
+.temp-and-image > img{
+  border-radius: 100px;
+}
+
+.description{
+  font-size: 2rem;
+  color: var(--card-text-color);
+  text-align: center; 
+  margin: auto;
+}
+
+.data-grid{
+  border: 3px solid pink;
+  margin-top:10px;
+  height: 50%;
+  width: 100%;
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.grid-card{
+  color: var(--card-text-color);
+  background-color: var(--card-color);
+  min-height: 100px;
+  min-width: 200px;
+  max-width: 250px;
+  max-height: 100px;
+  
+  border-radius: 10px;
+  font-size: 1.5rem;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-head{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.card-head > img{
+  display: inline;
+  height: 2rem;
+  width: 2rem;
+}
+
+.grid-card > .card-data{
+/*   color: red; */
+}
+
+
+
+
+footer{
+  width: 100%;
+  height: 3rem;
+  background-color: var(--footer-color);
+  color: var(--footer-text-color);
+  margin-top: 30px;
+}
+
+
+
+
+
+/* Responsive Design Stuff */
+@media (max-width: 720px){
+ 
+  #toolbar{
+    display: flex; 
+    flex-direction: column;
+    height: 8rem;
+    gap: 5px;
+    margin-bottom: 20px;
+  }
+  #searchbar{
+    display: flex; 
+    flex-direction: column;
+    width: 80%;
+    
+  }
+  
+  #searchbar-feild{
+    height: 2.5rem;
+    font-size: 2rem;
+    width: 100%;
+  }
+  
+  .data-grid{
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+  
+  .grid-card{
+    min-height: 100px;
+    min-width: 200px;
+    max-width: 300px;
+    max-height: 100px;
+  }
+  #content{
+    height: fit-content;
+  }
+  
+  
+}
+
+@media (max-width: 480px) {
+  
+  .data-grid{
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+  }
+  
+  .grid-card{
+    
+    min-height: 100px;
+    min-width: 200px;
+    max-width: 100%;
+    max-height: 100px;
+  }
+  
+  body{
+    height: fit-content;
+    
+  }
+  #content{
+    height: fit-content;
+  }
+  
+}
+
+
+
