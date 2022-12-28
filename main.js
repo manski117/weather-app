@@ -1,4 +1,5 @@
 let tempFormat = 'celsius'
+//fahrenheit celsius kelvin
 
 
 function getLocationFromUser (){
@@ -33,14 +34,14 @@ function getDefaultData(coords) {
         let lat = 39.057;
         let lon = -95.680;
         let apiCall = ('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=7e9a8a2360a1c8b97cb00837292efb3f');
-        getWeatherData(apiCall).then(data => renderPage(data)).catch(err => console.log(err));
+        getWeatherData(apiCall).then(data => parseData(data)).catch(err => console.log(err));
     
     } else {
         //preferably build from user locale
         let lat = coords[0];
         let lon = coords[1];
         let apiCall = ('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=7e9a8a2360a1c8b97cb00837292efb3f');
-        getWeatherData(apiCall).then(data => renderPage(data)).catch(err => console.log(err));
+        getWeatherData(apiCall).then(data => parseData(data)).catch(err => console.log(err));
     }
 
     
@@ -50,12 +51,7 @@ async function getWeatherData(apiCall){
     try{
     let response = await fetch(apiCall, {mode: 'cors'});
     let responseData = await response.json();
-    // console.log(responseData);
-    // let city = responseData.name;
-    // let country = responseData.sys.country;
     
-    // let temp = convertTemp(responseData.main.temp, tempFormat);
-    // console.log('does it work?', city, country, temp);
     return responseData;
     } catch (err) {
         console.log(err);
@@ -63,21 +59,74 @@ async function getWeatherData(apiCall){
     
 }
 
-function renderPage(data){
-    //temps are in kelvin by default
-    console.log('data will now be processed to go to DOM');
-    renderTimeDate();
+function parseData(data){
+    console.log('data will now be processed from resolved promise');
+    
+
+    //get data from resolved promise object
     let city = data.name;
     let country = data.sys.country;
     let temp = convertTemp(data.main.temp, tempFormat);
-    let description
-    let windSpeed
-    let windDirection
-    let humidity
-    let pressure
-    let highTemp
-    let lowTemp
-    console.log('renderPage function', city, country, temp);
+    let feelsLike = convertTemp(data.main.feels_like, tempFormat);
+    let description = data.weather[0].description;
+    let windSpeed = data.wind.speed;
+    let humidity = data.main.humidity;
+    let pressure = data.main.pressure;
+    let clouds = data.clouds.all;
+    let highTemp = convertTemp(data.main.temp_max, tempFormat);
+    let lowTemp = convertTemp(data.main.temp_min, tempFormat);
+
+    //test line
+    console.log('parseData function prints:', city, country, temp, description, clouds, windSpeed, humidity, pressure, highTemp, lowTemp);
+    
+    //take data and use it to render page
+    renderPage(city, country, temp, description, clouds, windSpeed, humidity, pressure, highTemp, lowTemp, feelsLike, tempFormat);
+
+}
+
+function renderPage(city, country, temp, description, clouds, windSpeed, humidity, pressure, highTemp, lowTemp, feelsLike, tempFormat){
+    console.log('data will now be rendered to the DOM')
+    renderTimeDate();
+
+    //get appropriate symbol for temp format fahrenheit celsius kelvin
+    let tempSymbol
+    if (tempFormat === 'celsius'){
+        tempSymbol = '℃';
+    } else if (tempFormat === 'fahrenheit'){
+        tempSymbol = '℉';
+    } else{
+        tempSymbol = '°K';
+    }
+
+    //get DOM elements
+    const content = document.getElementById('content');
+    
+    const temperatureDisplay = content.querySelector('.temperature');
+    const gifContainer = document.getElementById('gifContainer');
+    const cityAndCountryDisplay = document.getElementById('city-country');
+    const descriptionDisplay = content.querySelector('.description');
+    const feelsLikeCard = document.getElementById('feels-like');
+    const lowOfCard = document.getElementById('low-temp');
+    const highOfCard = document.getElementById('high-temp');
+    const pressureCard = document.getElementById('pressure');
+    const humidityCard = document.getElementById('humidity');
+    const windSpeedCard = document.getElementById('wind-speed');
+
+    //render elements to DOM
+    cityAndCountryDisplay.innerText = `${city}, ${country}`;
+    temperatureDisplay.innerText = `${temp}`+`${tempSymbol}`;
+    descriptionDisplay.innerText = `Looks like ${description} with ${clouds}% cloud coverage.`
+    windSpeedCard.querySelector('.card-data').innerText = `${windSpeed} m/s`;
+    humidityCard.querySelector('.card-data').innerText = `${humidity}%`; 
+    pressureCard.querySelector('.card-data').innerText = `${pressure} hPa`; 
+    highOfCard.querySelector('.card-data').innerText = `${highTemp}`+`${tempSymbol}`; 
+    lowOfCard.querySelector('.card-data').innerText = `${lowTemp}`+`${tempSymbol}`; 
+    feelsLikeCard.querySelector('.card-data').innerText = `${feelsLike}`+`${tempSymbol}`;
+    
+    //TODO: call giphy here
+    
+    
+
 
 }
 
@@ -90,9 +139,8 @@ function renderTimeDate(){
     let time = `${Today.getHours()}` + `:` + `${Today.getMinutes()}`;
     let date = `${dayOfWeek}` + ` ${month}` + ` ${Today.getDate()}`;
     
-    
-    console.log(time, date);
-    //TODO: render time to DOM
+    const timeAndDayDisplay = document.getElementById('time-day');
+    timeAndDayDisplay.innerText = `${time} + ${date}`;
 }
 
 function convertTemp (temp, tempFormat){
