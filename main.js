@@ -46,6 +46,8 @@ function getDefaultData(coords) {
 
     
 }
+
+
 async function getWeatherData(apiCall){
     //take in a completed url for a fetch request and return a processed json from a resolved promise;
     try{
@@ -102,7 +104,7 @@ function renderPage(city, country, temp, description, clouds, windSpeed, humidit
     const content = document.getElementById('content');
     
     const temperatureDisplay = content.querySelector('.temperature');
-    const gifContainer = document.getElementById('gifContainer');
+    
     const cityAndCountryDisplay = document.getElementById('city-country');
     const descriptionDisplay = content.querySelector('.description');
     const feelsLikeCard = document.getElementById('feels-like');
@@ -124,9 +126,8 @@ function renderPage(city, country, temp, description, clouds, windSpeed, humidit
     feelsLikeCard.querySelector('.card-data').innerText = `${feelsLike}`+`${tempSymbol}`;
     
     //TODO: call giphy here
+    displayGif(description).catch(err => console.log(err));
     
-    
-
 
 }
 
@@ -166,3 +167,42 @@ function roundDown(num){
 
 
 getLocationFromUser();
+
+
+///get input from searchbar
+const searchBarInput = document.getElementById('searchbar-feild');
+const gifContainer = document.getElementById('gifContainer');
+const subBut = document.getElementById('submit-location');
+
+//prevent default and add listener
+subBut.addEventListener('click', function(event){
+    event.preventDefault()
+  });
+subBut.addEventListener('click', getUserInput);
+
+function getUserInput(){
+    let inputString = document.querySelector('#searchbar-feild').value;
+    //this will query by city, wheras the default queries by coordinates
+    let apiCall = 'https://api.openweathermap.org/data/2.5/weather?q=' + inputString + '&units=metric&appid=7e9a8a2360a1c8b97cb00837292efb3f'
+    alert(apiCall);
+    queryUserInput(apiCall);
+}
+
+function queryUserInput(apiCall){
+    //run api call, get the data and then parse it.
+    //the parseData function will also then render the page
+    getWeatherData(apiCall).then(data => parseData(data)).catch(err => console.log(err));
+}
+
+async function displayGif(query){
+    try{
+        let inputString = query;
+        let apiCall = 'https://api.giphy.com/v1/gifs/translate?api_key=7Wnj0H7weXMpnOdr2p83rxvT4J4ZGnKz&s=' + inputString;
+        let response = await fetch(apiCall, {mode: 'cors'});
+        let responseData = await response.json();
+        gifContainer.src = responseData.data.images.original.url;
+        } catch (err) {
+            console.log(err);
+        }
+
+}
