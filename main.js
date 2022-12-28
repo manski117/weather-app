@@ -1,5 +1,80 @@
-let tempFormat = 'celsius'
-//fahrenheit celsius kelvin
+const toggleButtons = document.getElementById('toggle-buttons');
+const toggleC = document.getElementById('toggle-c');
+const toggleF = document.getElementById('toggle-f');
+const toggleK = document.getElementById('toggle-k');
+
+//set default temperature unit to celsius
+toggleC.classList.add('active');
+let tempFormat = 'celsius' //fahrenheit celsius kelvin
+
+toggleC.addEventListener('click', toggleTempFormat);
+toggleF.addEventListener('click', toggleTempFormat);
+toggleK.addEventListener('click', toggleTempFormat);
+
+function getUnitFromSymbol(symbol){
+    let unit;
+    if (symbol === 'f'){
+        unit = 'fahrenheit'
+    }
+    if (symbol === 'c'){
+        unit = 'celsius'
+    }
+    if (symbol === 'k'){
+        unit = 'kelvin'
+    }
+
+    return unit;
+}
+
+function toggleTempFormat(){
+    let id = this.id
+    let symbol = id.charAt(id.length-1);
+    let unit = getUnitFromSymbol(symbol);
+
+    //make sure the other one is no longer active. 
+    const activeButtons = toggleButtons.querySelectorAll('.active');
+    activeButtons.forEach(button =>{
+        button.classList.remove('active');
+    });
+
+    //set clicked temp to active
+    let activatedButton = document.getElementById(`${id}`);
+    activatedButton.classList.add('active');
+
+    tempFormat = unit;
+    convertAllTemps(tempFormat);
+    console.log(id, symbol, unit, tempFormat);
+}
+
+
+function convertAllTemps(tempFormat){
+    //code to change all temps on page
+    console.log(tempFormat);
+
+    //grab dom elements
+    const temperatureDisplay = content.querySelector('.temperature');
+    const feelsLikeCard = document.getElementById('feels-like');
+    const lowOfCard = document.getElementById('low-temp');
+    const highOfCard = document.getElementById('high-temp');
+
+        //get JUST the numbers out of them
+    highOfCard.querySelector('.card-data').innerText
+    lowOfCard.querySelector('.card-data').innerText
+    feelsLikeCard.querySelector('.card-data').innerText
+    
+
+    //get JUST the numbers out of them
+
+    //make sure they are ints
+
+    //convert correctly
+
+    //put them back with correct unit via innertext
+    // highOfCard.querySelector('.card-data').innerText = `${highTemp}`+`${tempSymbol}`; 
+    // lowOfCard.querySelector('.card-data').innerText = `${lowTemp}`+`${tempSymbol}`; 
+    // feelsLikeCard.querySelector('.card-data').innerText = `${feelsLike}`+`${tempSymbol}`;
+}
+
 
 
 function getLocationFromUser (){
@@ -68,6 +143,7 @@ function parseData(data){
     //get data from resolved promise object
     let city = data.name;
     let country = data.sys.country;
+    console.log(data.main.temp);
     let temp = convertTemp(data.main.temp, tempFormat);
     let feelsLike = convertTemp(data.main.feels_like, tempFormat);
     let description = data.weather[0].description;
@@ -141,23 +217,51 @@ function renderTimeDate(){
     let date = `${dayOfWeek}` + ` ${month}` + ` ${Today.getDate()}`;
     
     const timeAndDayDisplay = document.getElementById('time-day');
-    timeAndDayDisplay.innerText = `${time} + ${date}`;
+    timeAndDayDisplay.innerText = `${time}`+` ${date}`;
 }
 
-function convertTemp (temp, tempFormat){
+function convertTemp (temp, tempFormat, fromUnit = 'kelvin'){
     //temps are kelvin by default, so you will always start with a kelvin number
-    
-    if(tempFormat === 'kelvin') {
-        let convertedTemp = roundDown(temp);
-        return convertedTemp; 
-    } else if (tempFormat === 'celsius') {
-        let convertedTemp = roundDown(temp - 273.15);
-        return convertedTemp; 
-    } else if (tempFormat === 'fahrenheit'){
-        let convertedTemp = roundDown((temp - 273.15) * (9/5) + 32);
-        return convertedTemp; 
+    console.log(fromUnit);
+    if (fromUnit === 'kelvin'){
+        //these statements all take a kelvin unit and transform them into the tempFormat unit
+        if(tempFormat === 'kelvin') {
+            let convertedTemp = roundDown(temp);
+            return convertedTemp; 
+        } else if (tempFormat === 'celsius') {
+            let convertedTemp = roundDown(temp - 273.15);
+            return convertedTemp; 
+        } else if (tempFormat === 'fahrenheit'){
+            let convertedTemp = roundDown((temp - 273.15) * (9/5) + 32);
+            return convertedTemp; 
+        }
+    } else if (fromUnit === 'celsius'){
+        //these statements all take a celsius unit and transform them into the tempFormat unit
+        if(tempFormat === 'celsius') {
+            let convertedTemp = roundDown(temp);
+            return convertedTemp; 
+        } else if (tempFormat === 'kelvin') {
+            let convertedTemp = roundDown(temp + 273.15);
+            return convertedTemp; 
+        } else if (tempFormat === 'fahrenheit'){
+            let convertedTemp = roundDown(temp * (9/5) + 32);
+            return convertedTemp; 
+        }
+    } else if (fromUnit === 'fahrenheit'){
+        //these statements all take a fahrenheit unit and transform them into the tempFormat unit
+        if(tempFormat === 'fahrenheit') {
+            let convertedTemp = roundDown(temp);
+            return convertedTemp; 
+        } else if (tempFormat === 'kelvin') {
+            let convertedTemp = roundDown(((temp - 32) * (9/5)) + 273.15);
+            return convertedTemp; 
+        } else if (tempFormat === 'celsius'){
+            let convertedTemp = roundDown((temp - 32) * (5/9));
+            return convertedTemp; 
+        }
     }
-       
+
+
 }
 
 function roundDown(num){
@@ -166,7 +270,7 @@ function roundDown(num){
 
 
 
-getLocationFromUser();
+
 
 
 ///get input from searchbar
@@ -180,10 +284,17 @@ subBut.addEventListener('click', function(event){
   });
 subBut.addEventListener('click', getUserInput);
 
+//hit enter to submit query
+searchBarInput.onkeydown = function(e){
+    if(e.keyCode == 13){
+        getUserInput();
+    }
+ };
+
 function getUserInput(){
     let inputString = document.querySelector('#searchbar-feild').value;
     //this will query by city, wheras the default queries by coordinates
-    let apiCall = 'https://api.openweathermap.org/data/2.5/weather?q=' + inputString + '&units=metric&appid=7e9a8a2360a1c8b97cb00837292efb3f'
+    let apiCall = 'https://api.openweathermap.org/data/2.5/weather?q=' + inputString + '&appid=7e9a8a2360a1c8b97cb00837292efb3f'
     alert(apiCall);
     queryUserInput(apiCall);
 }
@@ -206,3 +317,7 @@ async function displayGif(query){
         }
 
 }
+
+
+getLocationFromUser();
+

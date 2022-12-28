@@ -25,7 +25,7 @@ A simple weather app to learn API integration and web development
 
 -giphy changing the dimensions of an image
 
--somehow getting temperatures of -200 C for Atlanta
+    DONE-somehow getting temperatures of -200 C for Atlanta
 
 **Future Feature Branch TODO**
 -grab user location automatically and parse it to play nice with api call
