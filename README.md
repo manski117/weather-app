@@ -18,3 +18,4 @@ A simple weather app to learn API integration and web development
 -CFK conversion
 
 **Future Feature Branch TODO**
+-grab user location automatically and parse it to play nice with api call
