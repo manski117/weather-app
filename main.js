@@ -41,38 +41,73 @@ function toggleTempFormat(){
     let activatedButton = document.getElementById(`${id}`);
     activatedButton.classList.add('active');
 
-    tempFormat = unit;
-    convertAllTemps(tempFormat);
+    
+    console.log(id, symbol, unit, tempFormat);
+    convertAllTemps(tempFormat, unit);
+    tempFormat = unit; //set the global var to the clicked-on unit
     console.log(id, symbol, unit, tempFormat);
 }
 
 
-function convertAllTemps(tempFormat){
+function convertAllTemps(fromUnit, toUnit){
     //code to change all temps on page
-    console.log(tempFormat);
+    console.log(fromUnit, toUnit);
 
     //grab dom elements
-    const temperatureDisplay = content.querySelector('.temperature');
+    const temperatureDisplay = document.querySelector('.temperature');
     const feelsLikeCard = document.getElementById('feels-like');
     const lowOfCard = document.getElementById('low-temp');
     const highOfCard = document.getElementById('high-temp');
 
-        //get JUST the numbers out of them
-    highOfCard.querySelector('.card-data').innerText
-    lowOfCard.querySelector('.card-data').innerText
-    feelsLikeCard.querySelector('.card-data').innerText
+    //get JUST the numbers out of them
+    let mainTempInput = temperatureDisplay.innerText
+    let highTempInput = highOfCard.querySelector('.card-data').innerText
+    let lowTempInput = lowOfCard.querySelector('.card-data').innerText
+    let feelsLikeInput = feelsLikeCard.querySelector('.card-data').innerText
     
 
     //get JUST the numbers out of them
-
-    //make sure they are ints
+    
+    let mainTempOutput = extractNumber(mainTempInput)
+    let highTempOutput = extractNumber(highTempInput)
+    let lowTempOutput = extractNumber(lowTempInput)
+    let feelsLikeOutput = extractNumber(feelsLikeInput)
+    
 
     //convert correctly
+    console.log('where conversion will happen', mainTempOutput, highTempOutput, lowTempOutput, feelsLikeOutput);
+    mainTempOutput = convertTemp(mainTempOutput, toUnit, fromUnit);
+    highTempOutput = convertTemp(highTempOutput, toUnit, fromUnit);
+    lowTempOutput = convertTemp(lowTempOutput, toUnit, fromUnit);
+    feelsLikeOutput = convertTemp(feelsLikeOutput, toUnit, fromUnit);
+    console.log('where conversion will happen', mainTempOutput, highTempOutput, lowTempOutput, feelsLikeOutput);
 
     //put them back with correct unit via innertext
     // highOfCard.querySelector('.card-data').innerText = `${highTemp}`+`${tempSymbol}`; 
     // lowOfCard.querySelector('.card-data').innerText = `${lowTemp}`+`${tempSymbol}`; 
     // feelsLikeCard.querySelector('.card-data').innerText = `${feelsLike}`+`${tempSymbol}`;
+
+    let tempSymbol = getSymbolFromTempFormat(toUnit);
+    temperatureDisplay.innerText = `${mainTempOutput}`+`${tempSymbol}`;
+    highOfCard.querySelector('.card-data').innerText = `${highTempOutput}`+`${tempSymbol}`; 
+    lowOfCard.querySelector('.card-data').innerText = `${lowTempOutput}`+`${tempSymbol}`; 
+    feelsLikeCard.querySelector('.card-data').innerText = `${feelsLikeOutput}`+`${tempSymbol}`;
+}
+
+function extractNumber(string){
+    //takes a string with numbers and then a degree/symbol
+    //gets only the decimal number and returns it as an int.
+    if (typeof string === 'number'){
+        return string;
+    } else {
+        let rx1 = /( |^)([+-]?[0-9]*\.?[0-9]*)( |$)/g
+        //there MUST be a space between the number and the symbol
+        arr = rx1.exec(string)
+        //returns an array with the number in index 2
+        let num = Number(arr[2]);
+        return num;
+    }
+
 }
 
 
@@ -162,19 +197,23 @@ function parseData(data){
 
 }
 
+function getSymbolFromTempFormat(tempFormat){
+    if (tempFormat === 'celsius'){
+        return tempSymbol = ' ℃';
+    } else if (tempFormat === 'fahrenheit'){
+        return tempSymbol = ' ℉';
+    } else{
+        return tempSymbol = ' K';
+    }
+}
+
 function renderPage(city, country, temp, description, clouds, windSpeed, humidity, pressure, highTemp, lowTemp, feelsLike, tempFormat){
     console.log('data will now be rendered to the DOM')
     renderTimeDate();
 
     //get appropriate symbol for temp format fahrenheit celsius kelvin
-    let tempSymbol
-    if (tempFormat === 'celsius'){
-        tempSymbol = '℃';
-    } else if (tempFormat === 'fahrenheit'){
-        tempSymbol = '℉';
-    } else{
-        tempSymbol = '°K';
-    }
+    let tempSymbol = getSymbolFromTempFormat(tempFormat);
+    
 
     //get DOM elements
     const content = document.getElementById('content');
@@ -248,12 +287,12 @@ function convertTemp (temp, tempFormat, fromUnit = 'kelvin'){
             return convertedTemp; 
         }
     } else if (fromUnit === 'fahrenheit'){
-        //these statements all take a fahrenheit unit and transform them into the tempFormat unit
+        //these statements all take a fahrenheit unit and transform them into the tempFormat uu65enit
         if(tempFormat === 'fahrenheit') {
             let convertedTemp = roundDown(temp);
             return convertedTemp; 
         } else if (tempFormat === 'kelvin') {
-            let convertedTemp = roundDown(((temp - 32) * (9/5)) + 273.15);
+            let convertedTemp = roundDown(((temp - 32) * (5/9)) + 273.15);
             return convertedTemp; 
         } else if (tempFormat === 'celsius'){
             let convertedTemp = roundDown((temp - 32) * (5/9));

@@ -15,13 +15,13 @@ A simple weather app to learn API integration and web development
 
 -add a loading animation
 
--CFK conversion
+    DONE-CFK conversion
 
 **Debug**
 
--plus signs where they shouldn't be
+    DONE-plus signs where they shouldn't be
 
--refactor conversion function
+    DONE-refactor conversion function
 
 -giphy changing the dimensions of an image
 
