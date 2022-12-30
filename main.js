@@ -240,7 +240,7 @@ function renderPage(city, country, temp, description, clouds, windSpeed, humidit
     lowOfCard.querySelector('.card-data').innerText = `${lowTemp}`+`${tempSymbol}`; 
     feelsLikeCard.querySelector('.card-data').innerText = `${feelsLike}`+`${tempSymbol}`;
     
-    //TODO: call giphy here
+    
     displayGif(description).catch(err => console.log(err));
     
 
@@ -334,7 +334,7 @@ function getUserInput(){
     let inputString = document.querySelector('#searchbar-feild').value;
     //this will query by city, wheras the default queries by coordinates
     let apiCall = 'https://api.openweathermap.org/data/2.5/weather?q=' + inputString + '&appid=7e9a8a2360a1c8b97cb00837292efb3f'
-    alert(apiCall);
+    
     queryUserInput(apiCall);
 }
 
@@ -347,7 +347,7 @@ function queryUserInput(apiCall){
 async function displayGif(query){
     try{
         let inputString = query;
-        let apiCall = 'https://api.giphy.com/v1/gifs/translate?api_key=7Wnj0H7weXMpnOdr2p83rxvT4J4ZGnKz&s=' + inputString;
+        let apiCall = 'https://api.giphy.com/v1/gifs/translate?api_key=7Wnj0H7weXMpnOdr2p83rxvT4J4ZGnKz&s=' + inputString + ',weather';
         let response = await fetch(apiCall, {mode: 'cors'});
         let responseData = await response.json();
         gifContainer.src = responseData.data.images.original.url;

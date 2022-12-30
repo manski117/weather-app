@@ -13,9 +13,12 @@ A simple weather app to learn API integration and web development
 
     DONE-add giphy integration
 
--add a loading animation
+
 
     DONE-CFK conversion
+
+-refactor tempFormat to avoid global collisions
+-generally just clean up code
 
 **Debug**
 
@@ -23,9 +26,10 @@ A simple weather app to learn API integration and web development
 
     DONE-refactor conversion function
 
--giphy changing the dimensions of an image
+    DONE-giphy changing the dimensions of an image
 
     DONE-somehow getting temperatures of -200 C for Atlanta
 
 **Future Feature Branch TODO**
+-add a loading animation
 -grab user location automatically and parse it to play nice with api call
