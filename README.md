@@ -1,35 +1,19 @@
-# weather-app
-A simple weather app to learn API integration and web development
+![screencap of app](images/weather-cloud-screenshot-1.png)
+
+# Weather Cloud
+## Weather app that automatically displays weather information for your locality using OpenWeatherMap API 
+
+### [Live Preview](https://manski117.github.io/weather-app/)
 
 
-**Basic Functionality TODO**
-DONE write function that gets location and return weather data FOR that location
+**Purpose of Project:**
+A portfolio project developed in javascript to demonstrate a knowledge of front-end web development skills, API integration, and responsive design.
 
-    DONE-write function to process json of data you get back
+**Core Features:**
 
-    DONE-allow user to import data from searchbar
+- Google Geolocation API automatically gets location from user and populates page with their local weather data.
+- User may search for other cities via searchbar.
+- Option to select from three different temperature formats.
+- Responsive to multiple screen sizes.
+- Data stored in "clouds"...literally. Clouds flexibly grow and shrink with screen size.
 
-    DONE-make the info display on DOM instead of console.
-
-    DONE-add giphy integration
-
-
-
-    DONE-CFK conversion
-
--refactor tempFormat to avoid global collisions
--generally just clean up code
-
-**Debug**
-
-plus signs where they shouldn't be
-
-    DONE-refactor conversion function
-
-    DONE-giphy changing the dimensions of an image
-
-    DONE-somehow getting temperatures of -200 C for Atlanta
-
-**Future Feature Branch TODO**
--add a loading animation
--grab user location automatically and parse it to play nice with api call
