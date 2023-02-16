@@ -44,18 +44,17 @@ body{
   height: fit-content;
   display: flex;
   flex-direction: column;
-  
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.3)
-    ),
-    url("https://upload.wikimedia.org/wikipedia/commons/e/e3/Blue_sky_with_wisps_of_cloud_on_a_clear_summer_morning.jpg");
-  
-  /* position: relative; */
-  background-position: 100%;
-  background-size: 500% 500%;
   margin: 0;
   padding: 0;
+  
+  /* stuff for background animation */
+  background: linear-gradient(0deg, #2777ba,#6fc2ec,#a9ccda,#4a94d8,#2777ba);
+  background-size: 200% 200%;
+  animation: gradient-animation 36s ease infinite;
+  /* position: relative; */
+  /* background-position: 100%; */
+  /* background-size: 500% 500%; */
+  
   
 /*Left number x, right number y. Default is x = y*/
 }
@@ -206,7 +205,7 @@ box-shadow: 0px 0px 33px 4px rgba(255,255,255,0.55);
   width: 100%;
   display: grid;
   gap: 25px;
-  grid-row-gap:50px;
+  grid-row-gap:80px;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -453,3 +452,17 @@ a:hover{
 box-shadow: 0px 0px 17px 8px rgba(123,177,235,0.67);
 }
 
+/* Animation for background */
+
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
