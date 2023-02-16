@@ -3,7 +3,7 @@ A simple weather app to learn API integration and web development
 
 
 **Basic Functionality TODO**
-DONE-write function that gets location and return weather data FOR that location
+DONE write function that gets location and return weather data FOR that location
 
     DONE-write function to process json of data you get back
 
@@ -22,7 +22,7 @@ DONE-write function that gets location and return weather data FOR that location
 
 **Debug**
 
-    DONE-plus signs where they shouldn't be
+plus signs where they shouldn't be
 
     DONE-refactor conversion function
 
