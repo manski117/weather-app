@@ -13,25 +13,25 @@
 <div id="toolbar">
     <div id="searchbar">
         <label for="searchbar-feild"></label>
-        <input type="text" id="searchbar-feild">
-        <input type="submit" id="submit-location">        
+        <input type="text" id="searchbar-feild" placeholder="Search my city" title="type the name of your city to see its weather">
+        <input type="submit" id="submit-location" title="Click to search for your city">        
     </div>
     <div id="toggle-buttons">
-        <div id="toggle-c" class="toggle-button">C</div>
-        <div id="toggle-f" class="toggle-button">F</div>
-        <div id="toggle-k" class="toggle-button">K</div>
+        <div id="toggle-c" class="toggle-button" title="click to change temperature format to Celcius">C</div>
+        <div id="toggle-f" class="toggle-button" title="click to change temperature format to Fahrenheit">F</div>
+        <div id="toggle-k" class="toggle-button" title="click to change temperature format to Kelvin">K</div>
     </div>
     
 </div>
 <div id="content">
     <div id="main-data">
         <div class="location-and-time">
-            <div id="city-country">City, country</div>
-            <div id="time-day">Time, day</div>
+            <div id="city-country">Click "allow" to import local weather!</div>
+            <div id="time-day">Or, search for a city's weather using the search bar</div>
         </div>
         <div class="temp-and-image">
             <div class="temperature">70&#8451</div>
-            <img id="gifContainer" src="https://picsum.photos/200" alt="flavor image to visually complement weather description">
+            <img id="gifContainer" src="https://picsum.photos/200" alt="flavor image to visually complement weather description" title="giphy animation of weather description">
         </div>
         <div class="description">The weather is sunny with a chance of rain</div>
     </div>
@@ -88,7 +88,7 @@
     </div>
 </div>
 <footer>
-    <div class="credit-box">Not a real service. Webb app developed by <a href="https://github.com/manski117?tab=repositories">Manski117</a> for learning purposes.</div>
+    <h4 class="credit-box">Not a real service. Webb app developed by <a href="https://github.com/manski117?tab=repositories">Manski117</a> for learning purposes.</h4>
     <div class="credit-box"></div>
 </footer>
     

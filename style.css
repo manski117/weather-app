@@ -8,6 +8,10 @@
 #main-data{
   font-family: Arial, Helvetica, sans-serif;
 }
+
+footer{
+  font-family: Arial, Helvetica, sans-serif;
+}
 header{
   font-family: 'Permanent Marker', Arial, cursive;
 }
@@ -20,16 +24,17 @@ header{
     --subhead-color: #2C5684;
     --subhead-text-color: #6D8DB0;
     --card-color: #2C5684;
-    --card-text-color: #6D8DB0;
+    --card-text-color: #c0cedd;
     --footer-color: #38368D;
-    --footer-text-color: #7A79BB;
+    --footer-text-color: #a4a4d0;
+    --footer-link-color: #4d90d3;
+    --footer-hover-color: #dc8cff;
     --button-color: #083E7B;
     --button-text-color: #0D7AF3;
 }
 
 *{
   box-sizing: border-box;
-  
 }
 
 
@@ -46,9 +51,11 @@ body{
     ),
     url("https://upload.wikimedia.org/wikipedia/commons/e/e3/Blue_sky_with_wisps_of_cloud_on_a_clear_summer_morning.jpg");
   
-  position: relative;
+  /* position: relative; */
   background-position: 100%;
   background-size: 500% 500%;
+  margin: 0;
+  padding: 0;
   
 /*Left number x, right number y. Default is x = y*/
 }
@@ -200,7 +207,7 @@ box-shadow: 0px 0px 33px 4px rgba(255,255,255,0.55);
   display: grid;
   gap: 25px;
   grid-row-gap:50px;
-  grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .grid-card{
@@ -265,16 +272,31 @@ box-shadow: 0px 0px 33px 4px rgba(255,255,255,0.55);
 
 
 
-
+#content{
+  position: relative;
+}
 footer{
   width: 100%;
-  height: 3rem;
+  height: fit-content;
   background-color: var(--footer-color);
   color: var(--footer-text-color);
   margin-top: 40px;
   padding: 20px;
   position: absolute;
   bottom: 0;
+  
+  
+}
+
+footer h4{
+  margin: 0;
+}
+
+a{
+  color: var(--footer-link-color);
+}
+a:hover{
+  color: var(--footer-hover-color);
 }
 
 
@@ -347,6 +369,10 @@ footer{
   }
   .cloud-img{
     height: 160px;
+  }
+
+  footer{
+    position: static;
   }
   
   
