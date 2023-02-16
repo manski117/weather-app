@@ -50,7 +50,7 @@ body{
   /* stuff for background animation */
   background: linear-gradient(0deg, #2777ba,#6fc2ec,#a9ccda,#4a94d8,#2777ba);
   background-size: 200% 200%;
-  animation: gradient-animation 36s ease infinite;
+  animation: gradient-animation 32s ease infinite;
   /* position: relative; */
   /* background-position: 100%; */
   /* background-size: 500% 500%; */
