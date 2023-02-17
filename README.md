@@ -7,13 +7,9 @@
 
 
 **Purpose of Project:**
-A portfolio project developed in javascript to demonstrate a knowledge of front-end web development skills, API integration, and responsive design.
+This portfolio project is a Weather Application that showcases my skills in front-end web development, API integration, and responsive design. 
 
 **Core Features:**
 
-- Google Geolocation API automatically gets location from user and populates page with their local weather data.
-- User may search for other cities via searchbar.
-- Option to select from three different temperature formats.
-- Responsive to multiple screen sizes.
-- Data stored in "clouds"...literally. Clouds flexibly grow and shrink with screen size.
-
+The project includes several features, such as leveraging the Google Geolocation API to display the user's local weather data on the page and allowing for users to search for weather information on other cities. 
+Users also have the option to have temperature displayed in different formats and the data is displayed in visual elements that look like clouds and scale in size with the page. 
