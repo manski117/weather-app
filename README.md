@@ -1,7 +1,7 @@
 ![screencap of app](images/weather-cloud-screenshot-1.png)
 
 # Weather Cloud
-## Weather app that automatically displays weather information for your locality using OpenWeatherMap API 
+### Weather app that automatically displays weather information for your locality using OpenWeatherMap API 
 
 ### [Live Preview](https://manski117.github.io/weather-app/)
 
